@@ -1,0 +1,73 @@
+
+h1. markupBuilder
+
+Easy markup string building in Javascript, inspired by Jim Weirich's Builder library - scratched an itch for me as I kept screwing html up when constructing it with javascript string methods, didn't like implementing templates in JS and the Builder style was a good fit for rapid dev.
+
+Currently I don't use this in production so it's not got an extensive test suite, hasn't had multi-browser QA and doesn't support all html tags - in fact it's generally horrible but vaguely usuable. Caveat Emptor etc. Would welcome any ideas, better yet fork the repo and fix something if it's really bugging you and send me a pull request.
+
+h3. Usage 
+
+<pre>
+
+// alias markupBuilder for convenience
+var b = markupBuilder();
+
+//basic tag
+//generates string  ''<div></div>'
+
+test_div = b.div();
+
+//basic tag with text
+//generates string 
+
+test_span = b.span("hello world");
+
+// self closing tag with attributes
+// generates string  '<img src="moon.gif" width="200" height="100" />'
+
+test_img = b.img({src:"moon.gif",width:"200",height:"100"});
+
+
+// standard list
+// generates string '<ul><li>apples</li><li>oranges</li><li>pears</li></ul>'
+
+standardList = b.ul(
+                  b.li("apples"),
+                  b.li("oranges"),
+                  b.li("pears")
+                );
+
+// list from array
+// generates string '<ul><li>apples</li><li>oranges</li><li>pears</li></ul>'
+
+myItems = ["apples","oranges","pears","grapes","bananas"];  
+arraylist = b.ul(
+              b.li(myItems)
+            )
+
+// put them all together for complex markup
+complexMarkup =   b.table(
+                    b.tr(
+                      b.td("moon"),
+                      b.td(
+                         b.img({
+                          src: "moon.gif",
+                          width: "200",
+                          height: "100"
+                        })
+                      )
+                    ),   
+                    b.tr(
+                      b.td('oranges'),
+                      b.td(
+                        b.ul(
+                          b.li(myItems)
+                        )
+                      )
+                    )
+                  )
+</pre>
+
+TODO: pass in yaml for list/table generation
+TODO: wrapping array/yaml data in multiple tags 
+TODO: tables from multi-dimensional arrays

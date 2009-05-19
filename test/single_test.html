@@ -1,0 +1,44 @@
+<html> 
+<head> 
+  <title>single test harness</title> 
+  <script src="../lib/markup-builder.js" type="text/javascript" charset="utf-8"></script>
+  <script> 
+  function assert( value, desc ) { 
+    var li = document.createElement("li"); 
+    li.className = value ? "pass" : "fail"; 
+    li.appendChild( document.createTextNode( desc ) ); 
+    document.getElementById("results").appendChild( li ); 
+  } 
+
+  </script> 
+  <style> 
+    #results li.pass { color: green; } 
+    #results li.fail { color: red; } 
+  </style> 
+</head> 
+<body> 
+    <ul id="results"></ul> 
+  <script type="text/javascript" charset="utf-8">
+
+//usage examples
+  
+// test fixtures
+myItems = ["apples","oranges","pears","grapes","bananas"];
+   
+//alias markupBuilder for convenience
+var b = markupBuilder();
+
+tableWithAttributes = b.table( {id:"big-table",class:"moneymoney"},
+                                b.tr( 
+                                  b.td("baa"),
+                                  b.td({id:"moo",text:"nanoo",spoon:"lalalala"})
+                                )
+                              );
+console.log(tableWithAttributes);
+
+  
+  
+</script>
+
+</body> 
+</html>

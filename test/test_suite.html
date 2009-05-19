@@ -1,0 +1,104 @@
+<html> 
+<head> 
+  <title>markup-builder test suite</title> 
+  <script src="test_helpers.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../lib/markup-builder.js" type="text/javascript" charset="utf-8"></script>
+  <script> 
+  function assert( value, desc ) { 
+    var li = document.createElement("li"); 
+    li.className = value ? "pass" : "fail"; 
+    li.appendChild( document.createTextNode( desc ) ); 
+    document.getElementById("results").appendChild( li ); 
+  } 
+  
+  window.onload = function(){ 
+    assert( true, "Test Suite Running." ); 
+    // single tags
+    assert( (test_div == '<div></div>'), "build single tag");
+    assert( (test_span == '<span>hello world</span>'), "build single tag with content");
+    assert( (test_para == '<p id="first_para" class="content" >hello moon</p>'), 'build single tag with attributes and content')
+    assert( (test_img == '<img src="moon.gif" width="200" height="100" />'), "build self closing tag with attributes");
+    
+    // complex markup
+    assert( (arraylist == "<ul><li>apples</li><li>oranges</li><li>pears</li><li>grapes</li><li>bananas</li></ul>"), "build list from array");
+    assert( (standardList == "<ul><li>apples</li><li>oranges</li><li>pears</li></ul>"), "build standard list");
+    assert( (complexMarkup == '<table><tr><td>moon</td><td><img src="moon.gif" width="200" height="100" /></td></tr><tr><td>oranges</td><td><ul><li>apples</li><li>oranges</li><li>pears</li><li>grapes</li><li>bananas</li></ul></td></tr></table>'), "build complex markup") 
+  }; 
+  </script> 
+  <style> 
+    #results li.pass { color: green; } 
+    #results li.fail { color: red; } 
+  </style> 
+</head> 
+<body> 
+
+<ul id="results"></ul> 
+
+<script type="text/javascript" charset="utf-8">
+  
+// test fixtures
+var th = "kasdj";
+myItems = ["apples","oranges","pears","grapes","bananas"];
+   
+// alias markupBuilder for convenience
+var b = markupBuilder();
+
+//single tag  
+test_div = b.div();
+console.log("test_div: " + test_div);
+
+//single tag with text
+test_span = b.span("hello world");
+console.log('test_span' + test_span);
+
+//single tag with attributes & text
+test_para = b.p({text: "hello moon",id: "first_para", class: "content"});
+console.log('test_para' + test_para);
+
+// single img tag
+test_img = b.img({src:"moon.gif",width:"200",height:"100"});
+console.log("test_img: " + test_img);
+
+// standard list
+standardList = b.ul(
+  b.li("apples"),
+  b.li("oranges"),
+  b.li("pears")
+) ;
+console.log("standardList: " + standardList);
+
+// list from array  
+arraylist = b.ul(
+ b.li(myItems)
+);
+console.log("arraylist: " + arraylist);
+
+// complex markup
+complexMarkup =  b.table(
+  b.tr(
+   b.td("moon"),
+    b.td(
+      b.img({
+        src: "moon.gif",
+        width: "200",
+        height: "100"
+      })
+    )
+  ),   
+  b.tr(
+    b.td('oranges'),
+    b.td(
+     b.ul(
+        b.li(myItems)
+     )
+    )
+  )
+);
+console.log("complexMarkup: " + complexMarkup);
+
+
+  
+</script>
+
+</body> 
+</html>
