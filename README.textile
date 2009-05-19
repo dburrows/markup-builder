@@ -5,6 +5,10 @@ Easy markup string building in Javascript, inspired by Jim Weirich's Builder lib
 
 Currently I don't use this in production so it's not got an extensive test suite, hasn't had multi-browser QA and doesn't support all html tags - in fact it's generally horrible but vaguely usuable. Caveat Emptor etc. Would welcome any ideas, better yet fork the repo and fix something if it's really bugging you and send me a pull request.
 
+h3. Supported Tags
+
+TABLE, TR, TD, DIV, SPAN, P, UL, OL, LI, IMG, BR, A, H1, H2, H3, H4
+
 h3. Usage 
 
 <pre>
@@ -67,7 +71,7 @@ complexMarkup =   b.table(
                     )
                   )
 </pre>
-
+TODO: autogenerate methods for all html tags
 TODO: pass in yaml for list/table generation
 TODO: wrapping array/yaml data in multiple tags 
 TODO: tables from multi-dimensional arrays
